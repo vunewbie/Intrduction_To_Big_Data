@@ -27,9 +27,15 @@ class calculateRevenue(MRJob):
 
                 columns = line.strip().split(",")
                 date = columns[2].strip() # Thuộc tính Date
+                status = columns[3].strip() # Thuộc tính Status
                 category = columns[9].strip() # Thuộc tính Category
-                amount = columns[15].strip() # Thuộc tính Amount
-                if amount == "":
+                amount = columns[15].strip() # Thuộc tính Amount - Số tiền thanh toán 
+
+                if amount == "": 
+                        amount = 0.0
+
+                refund = ["Cancelled", "Shipped - Rejected by Buyer", "Shipped - Returned to Seller", "Shipped - Returning to Seller"]
+                if status in refund:
                         amount = 0.0
 
                 date_obj = datetime.strptime(date, self.DATE_FORMAT_INPUT)
